@@ -20,19 +20,28 @@ class MyApp extends StatelessWidget {
         surface: const Color(0xff083409),
         brightness: Brightness.light,
       )),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+  MyHomePage({super.key});
+
+  final List<Map<String, dynamic>> itemList = [
+    {"title": "User Details", "widget": const Text("User Details")},
+    {"title": "Address", "widget": const Text("Address")},
+    {"title": "Profession Details", "widget": const Text("Profession Details")},
+    {"title": "Confirm Details", "widget": const Text("Confirm Details")},
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const StepperWidget(),
+      body: StepperWidget(
+        itemList: itemList,
+      ),
     );
   }
 }
