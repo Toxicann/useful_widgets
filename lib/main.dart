@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'widgets/stepper_widget.dart';
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
+        primary: const Color(0xff1c5f1e),
         seedColor: Colors.green,
         surface: const Color(0xff083409),
         brightness: Brightness.light,
@@ -29,10 +32,13 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
   final List<Map<String, dynamic>> itemList = [
-    {"title": "User Details", "widget": const Text("User Details")},
+    {"title": "Personal Details", "widget": const Text("Personal Details")},
+    {
+      "title": "Professional Details",
+      "widget": const Text("Professional Details")
+    },
     {"title": "Address", "widget": const Text("Address")},
-    {"title": "Profession Details", "widget": const Text("Profession Details")},
-    {"title": "Confirm Details", "widget": const Text("Confirm Details")},
+    {"title": "Confirm", "widget": const Text("Confirm")},
   ];
 
   @override
@@ -41,6 +47,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(),
       body: StepperWidget(
         itemList: itemList,
+        onConfirm: () => log("confirmed!!"),
       ),
     );
   }
