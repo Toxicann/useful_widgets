@@ -38,32 +38,15 @@ class _StepperWidgetState extends State<StepperWidget> {
       controlsBuilder: (context, details) {
         return Row(
           children: _index == 0
-              ? [
-                  TextButton(
-                    onPressed: onStepContinue,
-                    child: const Text("Next"),
-                  )
-                ]
+              ? [continueTextButton("Next", onStepContinue)]
               : _index > 0 && _index < widget.itemList.length - 1
                   ? [
-                      TextButton(
-                        onPressed: onStepContinue,
-                        child: const Text("Next"),
-                      ),
-                      TextButton(
-                        onPressed: onStepCancel,
-                        child: const Text("Back"),
-                      )
+                      continueTextButton("Next", onStepContinue),
+                      cancelTextButton("Back", onStepCancel),
                     ]
                   : [
-                      TextButton(
-                        onPressed: widget.onConfirm,
-                        child: const Text("Confirm"),
-                      ),
-                      TextButton(
-                        onPressed: onStepCancel,
-                        child: const Text("Back"),
-                      )
+                      continueTextButton("Confirm", widget.onConfirm),
+                      cancelTextButton("Back", onStepCancel),
                     ],
         );
       },
@@ -71,6 +54,24 @@ class _StepperWidgetState extends State<StepperWidget> {
           .map((item) =>
               Step(title: Text(item["title"]), content: item["widget"]))
           .toList(),
+    );
+  }
+
+  TextButton cancelTextButton(String title, VoidCallback? onPressed) {
+    return TextButton(
+      onPressed: onPressed,
+      child: const Text("Back"),
+    );
+  }
+
+  TextButton continueTextButton(String title, VoidCallback? onPressed) {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Colors.white,
+      ),
+      child: Text(title),
     );
   }
 }
