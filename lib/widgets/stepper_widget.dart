@@ -11,11 +11,17 @@ class StepperWidget extends StatefulWidget {
 
 class _StepperWidgetState extends State<StepperWidget> {
   int _index = 0;
-  List<String> title = [
-    "User Details",
-    "Address",
-    "Profession Details",
-    "Confirm",
+  // List<String> itemList = [
+  //   "User Details",
+  //   "Address",
+  //   "Profession Details",
+  //   "Confirm",
+  // ];
+  List<Map<String, dynamic>> itemList = [
+    {"title": "User Details", "widget": const Text("User Details")},
+    {"title": "Address", "widget": const Text("Address")},
+    {"title": "Profession Details", "widget": const Text("Profession Details")},
+    {"title": "Confirm Details", "widget": const Text("Confirm Details")},
   ];
   @override
   Widget build(BuildContext context) {
@@ -51,16 +57,23 @@ class _StepperWidgetState extends State<StepperWidget> {
                     child: Text("Next"),
                   )
                 ]
-              : [
-                  TextButton(
-                    onPressed: null,
-                    child: Text("Next"),
-                  ),
-                  TextButton(
-                    onPressed: null,
-                    child: Text("Back"),
-                  )
-                ],
+              : _index > 0 && _index < itemList.length - 1
+                  ? [
+                      TextButton(
+                        onPressed: null,
+                        child: Text("Next"),
+                      ),
+                      TextButton(
+                        onPressed: null,
+                        child: Text("Back"),
+                      )
+                    ]
+                  : [
+                      TextButton(
+                        onPressed: null,
+                        child: Text("Confirm"),
+                      ),
+                    ],
         );
       },
       //static
@@ -72,7 +85,12 @@ class _StepperWidgetState extends State<StepperWidget> {
       // ],
 
       //dynamic as list of string
-      steps: title.map((e) => Step(title: Text(e), content: Text(e))).toList(),
+      // steps: itemList.map((e) => Step(title: Text(e), content: Text(e))).toList(),
+
+      steps: itemList
+          .map((item) =>
+              Step(title: Text(item["title"]), content: item["widget"]))
+          .toList(),
     );
   }
 }
